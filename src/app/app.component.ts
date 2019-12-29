@@ -1,7 +1,8 @@
 import { Component, OnInit } from "@angular/core";
-import { from, fromEvent, interval } from "rxjs";
+import { from, fromEvent, interval, of } from "rxjs";
 import { multiply, divide } from "./operators/multiply";
 import { buffer, count, bufferTime, map, take } from "rxjs/operators";
+import { max } from './operators/max';
 
 @Component({
   selector: "app-root",
@@ -13,14 +14,12 @@ export class AppComponent implements OnInit {
   obs$ = from([1, 2, 3, 4, 5]);
 
   ngOnInit() {
-    console.log("asdsadsa")
+
+    /** multiply & divide */
     this.obs$.pipe(multiply(5), divide(2)).subscribe(console.log);
 
-    // fromEvent(document, "click")
-    //   .pipe(
-    //     bufferTime(1000),
-    //     map((x: Event[]) => x.map(y => y.clientX)),
-    //   )
-    //   .subscribe(console.log);
+    /** max operator from operators */
+    of(1, 2, 3).pipe(max()).subscribe(console.log);
+
   }
 }
